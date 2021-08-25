@@ -1,0 +1,34 @@
+WITH -1:
+
+----------------------------------------------
+| _tick                          | 488       |
+| _time                          | 1.63e+09  |
+| adversary_dist_entropy         | 1.68      |
+| adversary_env_dist_entropy     | 4.55      |
+| adversary_env_pg_loss          | -0.00198  |
+| adversary_env_value_loss       | 0.00146   |
+| adversary_pg_loss              | -0.000173 |
+| adversary_value_loss           | 0.00453   |
+| agent_dist_entropy             | 1.69      |
+| agent_pg_loss                  | -4.14e-07 |
+| agent_value_loss               | 5.77e-05  |
+| mean_adversary_agent_return    | -0.2      |
+| mean_agent_return              | -0.1      |
+| mean_env_return                | 0         |
+| num_blocks                     | 35.2      |
+| passable_ratio                 | 1         |
+| shortest_path_length           | 8.25      |
+| solved_path_length             | 0         |
+| solved_rate:MultiGrid-Labyr... | 0         |
+| solved_rate:MultiGrid-Maze-v0  | 0         |
+| solved_rate:MultiGrid-Sixte... | 0         |
+| sps                            | 85.8      |
+| steps                          | 5e+05     |
+| test_returns:MultiGrid-Laby... | 0         |
+| test_returns:MultiGrid-Maze-v0 | 0         |
+| test_returns:MultiGrid-Sixt... | 0         |
+| total_episodes                 | 3.93e+03  |
+----------------------------------------------
+INFO:root:Saved checkpoint to /home/charlie/logs/paired//latest/model.tar
+INFO:root:
+Saved checkpoint after update 488

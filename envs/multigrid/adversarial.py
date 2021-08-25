@@ -424,6 +424,18 @@ class ReparameterizedAdversarialEnv(AdversarialEnv):
     y = int(step / (self.width - 2)) + 1
     return x, y
 
+  def step(self, actions):
+    # TODO manfred : uncomment line bellow to get normal behaviour
+    # return super().step(actions)
+    if actions == 2:  # if fwd
+      front_pos = self.front_pos[0]
+      fwd_cell = self.grid.get(*front_pos)
+      if fwd_cell is not None and fwd_cell.type == 'wall':
+        obs, rew, done, info = super().step(actions)
+        return obs, rew-1, done, info
+
+    return super().step(actions)
+
   def step_adversary(self, action):
     """The adversary gets a step for each available square in the grid.
 

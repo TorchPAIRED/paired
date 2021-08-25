@@ -136,7 +136,7 @@ parser.add_argument(
 parser.add_argument(
     '--num_env_steps',
     type=int,
-    default=500000,
+    default=5000000,
     help='Total number of environment steps for training')
 
 # Architecture arguments.
