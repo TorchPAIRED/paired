@@ -269,11 +269,14 @@ class AdversarialEnv(multigrid.MultiGridEnv):
     if actions == 2:  # if fwd
         front_pos = self.front_pos[0]
         fwd_cell = self.grid.get(*front_pos)
-        if fwd_cell is not None and fwd_cell.type == 'wall':
+        if fwd_cell is None or fwd_cell.type == 'empty' or fwd_cell.type == "floor":
             obs, rew, done, info = super().step(actions)
-            return obs, rew - 1, done, info
+            return obs, rew + 0.1, done, info
 
-    return super().step(actions)
+    obs, rew, done, info = super().step(actions)
+    if rew > 0: # only true if reached goal
+        rew = rew + 1000
+    return obs, rew, done, info
 
   def step_adversary(self, loc):
     """The adversary gets n_clutter + 2 moves to place the goal, agent, blocks.
@@ -440,13 +443,16 @@ class ReparameterizedAdversarialEnv(AdversarialEnv):
     # TODO manfred : uncomment line bellow to get normal behaviour
     # return super().step(actions)
     if actions == 2:  # if fwd
-      front_pos = self.front_pos[0]
-      fwd_cell = self.grid.get(*front_pos)
-      if fwd_cell is not None and fwd_cell.type == 'wall':
-        obs, rew, done, info = super().step(actions)
-        return obs, rew-1, done, info
+        front_pos = self.front_pos[0]
+        fwd_cell = self.grid.get(*front_pos)
+        if fwd_cell is None or fwd_cell.type == 'empty' or fwd_cell.type == "floor":
+            obs, rew, done, info = super().step(actions)
+            return obs, rew + 0.1, done, info
 
-    return super().step(actions)
+    obs, rew, done, info = super().step(actions)
+    if rew > 0: # only true if reached goal
+        rew = rew + 1000
+    return obs, rew, done, info
 
   def step_adversary(self, action):
     """The adversary gets a step for each available square in the grid.
