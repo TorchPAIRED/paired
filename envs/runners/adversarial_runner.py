@@ -221,12 +221,17 @@ class AdversarialRunner(object):
             if is_env:
                 obs, reward, done, infos = self.ued_venv.step_adversary(_action)
 
-                for enumerati, (obs, info) in enumerate(zip(obs, infos)):
+                for enumerati, (ob, info) in enumerate(zip(obs, infos)):
                     import numpy
                     import sys
                     numpy.set_printoptions(threshold=sys.maxsize)
                     from envs.runners.minigrid_conf import MinigridConfiguration
-                    conf = MinigridConfiguration(obs, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
+
+                    print("obs:")
+                    print(ob)
+
+
+                    conf = MinigridConfiguration(ob, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                     filestring = conf.to_filestring()
 
                     from train import get_args
@@ -253,7 +258,7 @@ class AdversarialRunner(object):
 
                     with open(root_dir + "/" + id + ".cmpl", "w") as f:
                         from envs.runners.complexity import analyze_grid
-                        lz, rw = analyze_grid(obs)
+                        lz, rw = analyze_grid(ob)
                         f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
 
                     from PIL import Image
