@@ -236,7 +236,7 @@ class AdversarialRunner(object):
                         numpy.set_printoptions(threshold=sys.maxsize)
                         from envs.runners.minigrid_conf import MinigridConfiguration
 
-                        ob = np.array(ob.cpu() * 10, dtype=np.int)
+                        #ob = np.array(ob.cpu() * 10, dtype=np.int)
                         ob = ob.reshape(ob.shape[1], ob.shape[2], ob.shape[0])
                         print("shape")
                         print(ob.shape)
