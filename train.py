@@ -35,6 +35,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     set_args(args_global)
+    print("WTF")
     
     # === Configure logging ===
     if args.xpid is None:
