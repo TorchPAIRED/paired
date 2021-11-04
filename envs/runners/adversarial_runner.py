@@ -236,6 +236,8 @@ class AdversarialRunner(object):
                         numpy.set_printoptions(threshold=sys.maxsize)
                         from envs.runners.minigrid_conf import MinigridConfiguration
 
+                        ob = np.array(ob * 10, dtype=np.int)
+
                         print(info)
                         print("ob:")
                         print(ob)
