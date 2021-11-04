@@ -227,14 +227,14 @@ class AdversarialRunner(object):
                 for enumerati, (ob, info) in enumerate(zip(obs["image"], infos)):
                     import numpy
                     import sys
-                    numpy.set_printoptions(threshold=1000)
+                    numpy.set_printoptions(threshold=sys.maxsize)
                     from envs.runners.minigrid_conf import MinigridConfiguration
 
                     print("ob:")
                     print(ob)
                     print(ob.shape)
 
-                    conf = MinigridConfiguration(ob, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
+                    conf = MinigridConfiguration(ob.cpu().numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                     filestring = conf.to_filestring()
 
                     from train import get_args
