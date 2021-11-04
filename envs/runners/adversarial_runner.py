@@ -222,9 +222,9 @@ class AdversarialRunner(object):
                 obs, reward, done, infos = self.ued_venv.step_adversary(_action)
 
                 print("obs")
-                print(obs)
+                print(obs['image'].shape)
 
-                for enumerati, (ob, info) in enumerate(zip(obs, infos)):
+                for enumerati, (ob, info) in enumerate(zip(obs["image"], infos)):
                     import numpy
                     import sys
                     numpy.set_printoptions(threshold=sys.maxsize)
