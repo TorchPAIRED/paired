@@ -244,8 +244,8 @@ class AdversarialRunner(object):
                         conf = MinigridConfiguration(ob.cpu().numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                         filestring = conf.to_filestring()
 
-                        from train import get_args
-                        root_dir = get_args().log_dir
+                        from args_passer import get_passed_args
+                        root_dir = get_passed_args().log_dir
                         print("GOT ARGS")
                         print("LOG DIR IS", root_dir)
 

@@ -4,6 +4,8 @@ import time
 import timeit
 import logging
 import signal
+
+from args_passer import set_passed_args
 from arguments import parser
 
 import torch
@@ -22,19 +24,13 @@ from envs.runners.adversarial_runner import AdversarialRunner
 from util import make_agent, FileWriter, safe_checkpoint, create_parallel_env
 from eval import Evaluator
 
-args_global = None
-def set_args(args):
-    global args_global
-    args_global = args
-
-def get_args():
-    return args_global
 
 if __name__ == '__main__':
     os.environ["OMP_NUM_THREADS"] = "1"
 
     args = parser.parse_args()
-    set_args(args)
+    print(args)
+    set_passed_args(args)
     
     # === Configure logging ===
     if args.xpid is None:
