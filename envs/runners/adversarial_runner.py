@@ -236,14 +236,14 @@ class AdversarialRunner(object):
                         numpy.set_printoptions(threshold=sys.maxsize)
                         from envs.runners.minigrid_conf import MinigridConfiguration
 
-                        ob = np.array(ob * 10, dtype=np.int)
+                        ob = np.array(ob.cpu() * 10, dtype=np.int)
 
                         print(info)
                         print("ob:")
                         print(ob)
                         print(ob.shape)
 
-                        conf = MinigridConfiguration(ob.cpu().numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
+                        conf = MinigridConfiguration(ob.numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                         filestring = conf.to_filestring()
 
                         from args_passer import get_passed_args
