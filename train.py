@@ -22,15 +22,19 @@ from envs.runners.adversarial_runner import AdversarialRunner
 from util import make_agent, FileWriter, safe_checkpoint, create_parallel_env
 from eval import Evaluator
 
-args = None
+args_global = None
+def set_args(args):
+    global args_global
+    args_global = args
+
 def get_args():
-    global args
-    return args
+    return args_global
 
 if __name__ == '__main__':
     os.environ["OMP_NUM_THREADS"] = "1"
 
     args = parser.parse_args()
+    set_args(args_global)
     
     # === Configure logging ===
     if args.xpid is None:
