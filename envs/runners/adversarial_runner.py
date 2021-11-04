@@ -235,7 +235,7 @@ class AdversarialRunner(object):
                         print("shape")
                         print(ob.shape)
                         print(numpy.unique(ob.reshape(-1, ob.shape[2]), axis=0))
-                        exit()
+                        #exit()
 
                         print(info)
                         print("ob:")
