@@ -22,6 +22,8 @@ from envs.runners.adversarial_runner import AdversarialRunner
 from util import make_agent, FileWriter, safe_checkpoint, create_parallel_env
 from eval import Evaluator
 
+def get_args():
+    return args
 
 if __name__ == '__main__':
     os.environ["OMP_NUM_THREADS"] = "1"

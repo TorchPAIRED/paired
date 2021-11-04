@@ -220,6 +220,46 @@ class AdversarialRunner(object):
             _action = agent.process_action(action.cpu())
             if is_env:
                 obs, reward, done, infos = self.ued_venv.step_adversary(_action)
+
+                for enumerati, (obs, info) in enumerate(zip(obs, infos)):
+                    import numpy
+                    import sys
+                    numpy.set_printoptions(threshold=sys.maxsize)
+                    from envs.runners.minigrid_conf import MinigridConfiguration
+                    conf = MinigridConfiguration(obs, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
+                    filestring = conf.to_filestring()
+
+                    from train import get_args
+                    root_dir = get_args().log_dir
+                    print("GOT ARGS")
+                    print("LOG DIR IS", root_dir)
+
+                    try:
+                        import os
+                        os.mkdir(root_dir)
+                    except FileExistsError:
+                        pass
+                    import uuid
+                    import time
+                    #id = str(uuid.uuid4()) + "_s_" + str(time.time_ns())
+                    #id = id.replace("-", "_")
+                    # print(root_dir)
+                    # print(id)
+
+                    id = f"{str(step)}_{enumerati}"
+                    print("ID IS", id)
+
+                    with open(root_dir + "/" + id + ".grid", "w") as f:
+                        f.write(filestring)
+
+                    with open(root_dir + "/" + id + ".cmpl", "w") as f:
+                        from envs.runners.complexity import analyze_grid
+                        lz, rw = analyze_grid(obs)
+                        f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
+
+                    from PIL import Image
+                    Image.fromarray(self.render(mode="rgb_array")).save(f"{root_dir}/{id}.jpg")
+
             else:
                 obs, reward, done, infos = self.venv.step_env(_action, reset_random=reset_random)
                 if args.clip_reward:
