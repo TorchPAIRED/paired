@@ -223,6 +223,7 @@ class AdversarialRunner(object):
 
                 print("obs")
                 print(obs['image'].shape)
+                print(infos)
 
                 for enumerati, (ob, info) in enumerate(zip(obs["image"], infos)):
                     import numpy
@@ -230,6 +231,7 @@ class AdversarialRunner(object):
                     numpy.set_printoptions(threshold=sys.maxsize)
                     from envs.runners.minigrid_conf import MinigridConfiguration
 
+                    print(info)
                     print("ob:")
                     print(ob)
                     print(ob.shape)
