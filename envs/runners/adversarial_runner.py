@@ -221,12 +221,6 @@ class AdversarialRunner(object):
             if is_env:
                 obs, reward, done, infos = self.ued_venv.step_adversary(_action)
 
-                print("obs")
-                print(obs['image'].shape)
-                print(infos)
-                print("dones")
-                print(done)
-
                 if True in done:
                     assert np.sum(done) == 32
 
