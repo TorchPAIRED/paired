@@ -34,8 +34,7 @@ if __name__ == '__main__':
     os.environ["OMP_NUM_THREADS"] = "1"
 
     args = parser.parse_args()
-    set_args(args_global)
-    print("WTF")
+    set_args(args)
     
     # === Configure logging ===
     if args.xpid is None:
