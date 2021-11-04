@@ -232,7 +232,7 @@ class AdversarialRunner(object):
 
                     print("ob:")
                     print(ob)
-
+                    print(ob.shape)
 
                     conf = MinigridConfiguration(ob, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                     filestring = conf.to_filestring()
