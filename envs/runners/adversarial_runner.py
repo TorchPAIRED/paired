@@ -231,7 +231,7 @@ class AdversarialRunner(object):
                         from envs.runners.minigrid_conf import MinigridConfiguration
 
                         #ob = np.array(ob.cpu() * 10, dtype=np.int)
-                        ob = info["image"]
+                        ob = info["obs"]
                         print("shape")
                         print(ob.shape)
                         print(numpy.unique(ob.reshape(-1, ob.shape[2]), axis=0))
