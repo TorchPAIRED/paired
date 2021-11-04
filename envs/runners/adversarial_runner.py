@@ -237,6 +237,7 @@ class AdversarialRunner(object):
                         from envs.runners.minigrid_conf import MinigridConfiguration
 
                         ob = np.array(ob.cpu() * 10, dtype=np.int)
+                        print(numpy.unique(ob.reshape(-1, ob.shape[2]), axis=0))
 
                         print(info)
                         print("ob:")
