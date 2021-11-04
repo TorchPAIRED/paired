@@ -221,13 +221,16 @@ class AdversarialRunner(object):
             if is_env:
                 obs, reward, done, infos = self.ued_venv.step_adversary(_action)
 
+                print("obs")
+                print(obs)
+
                 for enumerati, (ob, info) in enumerate(zip(obs, infos)):
                     import numpy
                     import sys
                     numpy.set_printoptions(threshold=sys.maxsize)
                     from envs.runners.minigrid_conf import MinigridConfiguration
 
-                    print("obs:")
+                    print("ob:")
                     print(ob)
 
 
