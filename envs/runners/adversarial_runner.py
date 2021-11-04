@@ -230,14 +230,14 @@ class AdversarialRunner(object):
                 if True in done:
                     assert np.sum(done) == 32
 
-                    for enumerati, (ob, info) in enumerate(zip(obs["image"], infos)):
+                    for enumerati, info in enumerate(infos):
                         import numpy
                         import sys
                         numpy.set_printoptions(threshold=sys.maxsize)
                         from envs.runners.minigrid_conf import MinigridConfiguration
 
                         #ob = np.array(ob.cpu() * 10, dtype=np.int)
-                        ob = ob.reshape(ob.shape[1], ob.shape[2], ob.shape[0])
+                        ob = info["image"]
                         print("shape")
                         print(ob.shape)
                         print(numpy.unique(ob.reshape(-1, ob.shape[2]), axis=0))
