@@ -224,50 +224,55 @@ class AdversarialRunner(object):
                 print("obs")
                 print(obs['image'].shape)
                 print(infos)
+                print("dones")
+                print(done)
 
-                for enumerati, (ob, info) in enumerate(zip(obs["image"], infos)):
-                    import numpy
-                    import sys
-                    numpy.set_printoptions(threshold=sys.maxsize)
-                    from envs.runners.minigrid_conf import MinigridConfiguration
+                if True in done:
+                    assert np.sum(done) == 32
 
-                    print(info)
-                    print("ob:")
-                    print(ob)
-                    print(ob.shape)
+                    for enumerati, (ob, info) in enumerate(zip(obs["image"], infos)):
+                        import numpy
+                        import sys
+                        numpy.set_printoptions(threshold=sys.maxsize)
+                        from envs.runners.minigrid_conf import MinigridConfiguration
 
-                    conf = MinigridConfiguration(ob.cpu().numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
-                    filestring = conf.to_filestring()
+                        print(info)
+                        print("ob:")
+                        print(ob)
+                        print(ob.shape)
 
-                    from train import get_args
-                    root_dir = get_args().log_dir
-                    print("GOT ARGS")
-                    print("LOG DIR IS", root_dir)
+                        conf = MinigridConfiguration(ob.cpu().numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
+                        filestring = conf.to_filestring()
 
-                    try:
-                        import os
-                        os.mkdir(root_dir)
-                    except FileExistsError:
-                        pass
-                    import uuid
-                    #id = str(uuid.uuid4()) + "_s_" + str(time.time_ns())
-                    #id = id.replace("-", "_")
-                    # print(root_dir)
-                    # print(id)
+                        from train import get_args
+                        root_dir = get_args().log_dir
+                        print("GOT ARGS")
+                        print("LOG DIR IS", root_dir)
 
-                    id = f"{str(step)}_{enumerati}"
-                    print("ID IS", id)
+                        try:
+                            import os
+                            os.mkdir(root_dir)
+                        except FileExistsError:
+                            pass
+                        import uuid
+                        #id = str(uuid.uuid4()) + "_s_" + str(time.time_ns())
+                        #id = id.replace("-", "_")
+                        # print(root_dir)
+                        # print(id)
 
-                    with open(root_dir + "/" + id + ".grid", "w") as f:
-                        f.write(filestring)
+                        id = f"{str(step)}_{enumerati}"
+                        print("ID IS", id)
 
-                    with open(root_dir + "/" + id + ".cmpl", "w") as f:
-                        from envs.runners.complexity import analyze_grid
-                        lz, rw = analyze_grid(ob)
-                        f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
+                        with open(root_dir + "/" + id + ".grid", "w") as f:
+                            f.write(filestring)
 
-                    from PIL import Image
-                    Image.fromarray(self.render(mode="rgb_array")).save(f"{root_dir}/{id}.jpg")
+                        with open(root_dir + "/" + id + ".cmpl", "w") as f:
+                            from envs.runners.complexity import analyze_grid
+                            lz, rw = analyze_grid(ob)
+                            f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
+
+                        from PIL import Image
+                        Image.fromarray(self.render(mode="rgb_array")).save(f"{root_dir}/{id}.jpg")
 
             else:
                 obs, reward, done, infos = self.venv.step_env(_action, reset_random=reset_random)
