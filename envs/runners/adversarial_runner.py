@@ -243,7 +243,7 @@ class AdversarialRunner(object):
                         print(ob)
                         print(ob.shape)
 
-                        conf = MinigridConfiguration(ob.numpy(), info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
+                        conf = MinigridConfiguration(ob, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                         filestring = conf.to_filestring()
 
                         from args_passer import get_passed_args
