@@ -240,7 +240,6 @@ class AdversarialRunner(object):
                     except FileExistsError:
                         pass
                     import uuid
-                    import time
                     #id = str(uuid.uuid4()) + "_s_" + str(time.time_ns())
                     #id = id.replace("-", "_")
                     # print(root_dir)

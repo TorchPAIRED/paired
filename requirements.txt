@@ -7,7 +7,7 @@ pandas>=1.0.5
 torch~=1.7.0
 matplotlib
 seaborn
-tensorflow==2.4.1
+tensorflow
 lempel_ziv_complexity
 tqdm>=4.46.1
 gin-config==0.1.1
