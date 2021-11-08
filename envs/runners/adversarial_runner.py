@@ -224,6 +224,11 @@ class AdversarialRunner(object):
                 if True in done:
                     assert np.sum(done) == 32
 
+                    from envs.runners.terrible_step_counter import get_terrible_step_counter
+                    terrible_step_counter = get_terrible_step_counter() * 32
+                    from envs.runners.terrible_step_counter import increment_terrible_step_counter
+                    increment_terrible_step_counter()
+
                     for enumerati, info in enumerate(infos):
                         import numpy
                         import sys
@@ -232,23 +237,24 @@ class AdversarialRunner(object):
 
                         #ob = np.array(ob.cpu() * 10, dtype=np.int)
                         ob = info["obs"]
-                        print("shape")
-                        print(ob.shape)
-                        print(numpy.unique(ob.reshape(-1, ob.shape[2]), axis=0))
+                        ob[ob == 10] = 1
+                        #print("shape")
+                        #print(ob.shape)
+                        #print(numpy.unique(ob.reshape(-1, ob.shape[2]), axis=0))
                         #exit()
 
-                        print(info)
-                        print("ob:")
-                        print(ob)
-                        print(ob.shape)
+                        #print(info)
+                        #print("ob:")
+                        #print(ob)
+                        #print(ob.shape)
 
                         conf = MinigridConfiguration(ob, info["agent_pos"], info["agent_dir"], "goal_pos", False, True, 15)
                         filestring = conf.to_filestring()
 
                         from args_passer import get_passed_args
                         root_dir = get_passed_args().log_dir
-                        print("GOT ARGS")
-                        print("LOG DIR IS", root_dir)
+                        #print("GOT ARGS")
+                        #print("LOG DIR IS", root_dir)
 
                         try:
                             import os
@@ -261,8 +267,8 @@ class AdversarialRunner(object):
                         # print(root_dir)
                         # print(id)
 
-                        id = f"{str(step)}_{enumerati}"
-                        print("ID IS", id)
+                        id = f"{str(terrible_step_counter+enumerati)}"
+                        #print("ID IS", id)
 
                         with open(root_dir + "/" + id + ".grid", "w") as f:
                             f.write(filestring)
@@ -273,7 +279,7 @@ class AdversarialRunner(object):
                             f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
 
                         from PIL import Image
-                        Image.fromarray(self.render(mode="rgb_array")).save(f"{root_dir}/{id}.jpg")
+                        Image.fromarray(info["render"]).save(f"{root_dir}/{id}.jpg")
 
             else:
                 obs, reward, done, infos = self.venv.step_env(_action, reset_random=reset_random)

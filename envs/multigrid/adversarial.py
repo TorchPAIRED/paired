@@ -340,7 +340,7 @@ class AdversarialEnv(multigrid.MultiGridEnv):
         'random_z': self.generate_random_z()
     }
 
-    return obs, 0, done, {"agent_pos": self.agent_start_pos, "agent_dir": self.agent_start_dir, "goal_pos": self.goal_pos, "obs": image}
+    return obs, 0, done, ({"agent_pos": self.agent_start_pos, "agent_dir": self.agent_start_dir, "goal_pos": self.goal_pos, "obs": image, "render": self.render(mode="rgb_array")} if done else {})
 
   def reset_random(self):
     """
