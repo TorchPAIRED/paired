@@ -5,7 +5,6 @@ import timeit
 import logging
 import signal
 
-from args_passer import set_passed_args
 from arguments import parser
 
 import torch
@@ -30,8 +29,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     print(args)
-    set_passed_args(args)
-    
+
     # === Configure logging ===
     if args.xpid is None:
         args.xpid = "lr-%s" % time.strftime("%Y%m%d-%H%M%S")

@@ -116,6 +116,8 @@ class FileWriter:
             os.makedirs(self.basepath, exist_ok=True)
         else:
             self._logger.info("Found log directory: %s", self.basepath)
+        from args_passer import set_passed_logdir
+        set_passed_logdir(self.basepath)
 
         if symlink_to_latest:
             # Add 'latest' as symlink unless it exists and is no symlink.
