@@ -273,13 +273,13 @@ class AdversarialRunner(object):
                         with open(root_dir + "/" + id + ".grid", "w") as f:
                             f.write(filestring)
 
-                        #with open(root_dir + "/" + id + ".cmpl", "w") as f:
-                        #    from envs.runners.complexity import analyze_grid
-                        #    lz, rw = analyze_grid(ob)
-                        #    f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
+                        with open(root_dir + "/" + id + ".cmpl", "w") as f:
+                            from envs.runners.complexity import analyze_grid
+                            lz, rw = analyze_grid(ob)
+                            f.write(f"{lz},{rw},{(1 / rw) if rw != 0 else rw}\n")
 
-                        #from PIL import Image
-                        #Image.fromarray(info["render"]).save(f"{root_dir}/{id}.jpg")
+                        from PIL import Image
+                        Image.fromarray(info["render"]).save(f"{root_dir}/{id}.jpg")
 
             else:
                 obs, reward, done, infos = self.venv.step_env(_action, reset_random=reset_random)
