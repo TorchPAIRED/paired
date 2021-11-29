@@ -264,9 +264,15 @@ class AdversarialEnv(multigrid.MultiGridEnv):
     return np.random.uniform(size=(self.random_z_dim,)).astype(np.float32)
 
   def step(self, actions):
+    fwd_pos = self.front_pos[0]
+    # Get the contents of the cell in front of the agent
+    fwd_cell = self.grid.get(*fwd_pos)
+    was_goal = fwd_cell is not None and fwd_cell.type == 'goal'
+
     obs, rew, done, info = super().step(actions)
 
     if rew > 0:
+        assert was_goal
         rew = 10
 
     return obs, rew, done, info
