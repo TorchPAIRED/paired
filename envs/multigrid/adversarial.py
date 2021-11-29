@@ -267,7 +267,7 @@ class AdversarialEnv(multigrid.MultiGridEnv):
     obs, rew, done, info = super().step(actions)
 
     if rew > 0:
-        rew = 200
+        rew = 10
 
     return obs, rew, done, info
 
