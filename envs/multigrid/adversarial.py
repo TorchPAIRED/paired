@@ -267,7 +267,7 @@ class AdversarialEnv(multigrid.MultiGridEnv):
     if actions == 2:  # if fwd
         front_pos = self.front_pos[0]
         fwd_cell = self.grid.get(*front_pos)
-        if fwd_cell is not None or fwd_cell.type == 'wall':
+        if fwd_cell is not None and fwd_cell.type == 'wall':
             obs, rew, done, info = super().step(actions)
             return obs, rew + -1, done, info
 
