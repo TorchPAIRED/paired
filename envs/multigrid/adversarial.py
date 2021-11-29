@@ -264,19 +264,14 @@ class AdversarialEnv(multigrid.MultiGridEnv):
     return np.random.uniform(size=(self.random_z_dim,)).astype(np.float32)
 
   def step(self, actions):
-    # TODO manfred : uncomment line bellow to get normal behaviour
-    # return super().step(actions)
     if actions == 2:  # if fwd
         front_pos = self.front_pos[0]
         fwd_cell = self.grid.get(*front_pos)
-        if fwd_cell is None or fwd_cell.type == 'empty' or fwd_cell.type == "floor":
+        if fwd_cell is not None or fwd_cell.type == 'wall':
             obs, rew, done, info = super().step(actions)
-            return obs, rew + 0.1, done, info
+            return obs, rew + -1, done, info
 
-    obs, rew, done, info = super().step(actions)
-    if rew > 0: # only true if reached goal
-        rew = rew + 1000
-    return obs, rew, done, info
+    return super().step(actions)
 
   def step_adversary(self, loc):
     """The adversary gets n_clutter + 2 moves to place the goal, agent, blocks.
