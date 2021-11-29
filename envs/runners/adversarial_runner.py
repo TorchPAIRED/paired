@@ -270,6 +270,7 @@ class AdversarialRunner(object):
                         id = f"{str(terrible_step_counter+enumerati)}"
                         #print("ID IS", id)
 
+                        # this is ridiculously slow :)
                         with open(root_dir + "/" + id + ".grid", "w") as f:
                             f.write(filestring)
 
