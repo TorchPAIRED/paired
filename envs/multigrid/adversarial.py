@@ -272,7 +272,7 @@ class AdversarialEnv(multigrid.MultiGridEnv):
     obs, rew, done, info = super().step(actions)
 
     if rew > 0:
-        assert was_goal
+        assert was_goal and actions == 2
         rew = 10
 
     return obs, rew, done, info
